@@ -1,35 +1,19 @@
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
+
+import '../controllers/register_controller.dart';
 import '/app/components/login_with_view.dart';
-import '/app/routes/app_pages.dart';
 
-import '../controllers/login_controller.dart';
-
-class LoginView extends GetView<LoginController> {
+class RegisterView extends GetView<RegisterController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text('register'.tr),
+        centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
-        actions: [
-          GestureDetector(
-            onTap: () {
-              Get.offNamed(Routes.REGISTER);
-            },
-            child: Container(
-              alignment: Alignment.centerLeft,
-              width: 50,
-              child: Text(
-                "注册",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                ),
-              ),
-            ),
-          ),
-        ],
       ),
       body: Container(
         color: Colors.white,
@@ -42,13 +26,6 @@ class LoginView extends GetView<LoginController> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text(
-                  "more_exciting_after_login".tr,
-                  style: const TextStyle(
-                      fontSize: 25,
-                      // fontWeight: FontWeight.bold,
-                      color: Colors.black),
-                ),
                 const SizedBox(
                   height: 30,
                 ),
@@ -114,60 +91,6 @@ class LoginView extends GetView<LoginController> {
                     ),
                   ),
                 ),
-                Center(
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      textDirection: TextDirection.ltr,
-                      children: [
-                        Obx(
-                          () => SizedBox(
-                            width: 30,
-                            height: 20,
-                            child: Checkbox(
-                              tristate: true,
-                              shape: const CircleBorder(),
-                              activeColor: Colors.red,
-                              checkColor: Colors.white,
-                              hoverColor: Colors.white,
-                              focusColor: Colors.red,
-                              side: const BorderSide(
-                                  // color: Colors.white,
-                                  ),
-                              value: controller.agreeCheckBox.value,
-                              onChanged: (value) {
-                                controller.oncheckBoxChanged();
-                              },
-                            ),
-                          ),
-                        ),
-                        Text(
-                          "read_and_ageree".tr,
-                          style: const TextStyle(
-                              color: Colors.black, fontSize: 12.0),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.only(top: 18),
-                            child: InkWell(
-                              onTap: () => {print("OK")},
-                              child: Text(
-                                "service_agreement".tr,
-                                softWrap: true,
-                                maxLines: 100,
-                                style: const TextStyle(
-                                    color: Colors.blue, fontSize: 12.0),
-                                // textAlign: ,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -175,8 +98,8 @@ class LoginView extends GetView<LoginController> {
                   padding:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 140),
                   label: Obx(
-                    () => controller.isLogingIn.isFalse
-                        ? Text("login".tr,
+                    () => controller.isRegistering.isFalse
+                        ? Text("register".tr,
                             style: const TextStyle(
                               fontSize: 15.0,
                               fontWeight: FontWeight.bold,
@@ -189,8 +112,8 @@ class LoginView extends GetView<LoginController> {
                           ),
                   ),
                   onPressed: () {
-                    if (controller.isLogingIn.isFalse) {
-                      controller.onLogin();
+                    if (controller.isRegistering.isFalse) {
+                      controller.onRegister();
                     }
                   },
                   backgroundColor: Colors.red,

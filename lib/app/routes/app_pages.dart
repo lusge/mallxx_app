@@ -6,8 +6,12 @@ import '../modules/productList/bindings/product_list_binding.dart';
 import '../modules/productList/views/product_list_view.dart';
 import '../modules/product_info/bindings/product_info_binding.dart';
 import '../modules/product_info/views/product_info_view.dart';
+import '../modules/register/bindings/register_binding.dart';
+import '../modules/register/views/register_view.dart';
 import '../modules/root/bindings/root_binding.dart';
 import '../modules/root/views/root_view.dart';
+import '../modules/setting/bindings/setting_binding.dart';
+import '../modules/setting/views/setting_view.dart';
 
 part 'app_routes.dart';
 
@@ -36,6 +40,16 @@ class AppPages {
       name: _Paths.LOGIN,
       page: () => LoginView(),
       binding: LoginBinding(),
+    ),
+    GetPage(
+      name: _Paths.SETTING,
+      page: () => SettingView(),
+      binding: SettingBinding(),
+    ),
+    GetPage(
+      name: _Paths.REGISTER,
+      page: () => RegisterView(),
+      binding: RegisterBinding(),
     ),
   ];
 }

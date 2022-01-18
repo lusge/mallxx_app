@@ -39,12 +39,16 @@ class HomeController extends GetxController {
 
   void getPageAd() async {
     var data = await getAdList(pos: 2);
-    adList.addAll(data!);
+    if (data != null) {
+      adList.addAll(data);
+    }
   }
 
   void getPromotionAd() async {
     var data = await getAdList(pos: 1);
-    promotionAdList.addAll(data!);
+    if (data != null) {
+      promotionAdList.addAll(data);
+    }
   }
 
   Future<List<Advertisement>?> getAdList(
@@ -105,5 +109,8 @@ class HomeController extends GetxController {
   }
 
   @override
-  void onClose() {}
+  void onClose() {
+    super.onClose();
+    easyRefreshController.dispose();
+  }
 }

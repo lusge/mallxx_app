@@ -49,7 +49,8 @@ class LoginProvider {
 
   void cleanLogin() {
     SharedPreferences sp = Get.find<SharedPreferences>();
-    sp.setString(loginMode, "");
-    sp.setString(loginToken, "");
+    sp.remove(loginMode);
+    sp.remove(loginToken);
+    print("cleanLogin");
   }
 }

@@ -6,18 +6,11 @@ import '/app/routes/app_pages.dart';
 import '/app/components/recommend_list_view.dart';
 import '/app/models/member_model.dart';
 
-import '/app/providers/login_provider.dart';
 import '/app/modules/root/controllers/account_controller.dart';
-import '/app/models/product_model.dart';
 
 class AccountView extends GetView<AccountController> {
-  final EasyRefreshController _easyRefreshController = EasyRefreshController();
-  final LoginProvider loginProvider = Get.find<LoginProvider>();
-
-  List<Product> _productList = [];
-
-  Widget _header() {
-    Member? member = loginProvider.getMember();
+  Widget _header(Member? member) {
+    //  = controller.loginProvider.getMember();
     return SizedBox(
       height: 130,
       width: double.infinity,
@@ -30,16 +23,16 @@ class AccountView extends GetView<AccountController> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             GestureDetector(
-              onTap: () {
-                if (loginProvider.isLogin()) {
-                  // Get.to(() => const PersonalData(),
-                  //     transition: Transition.rightToLeft);
+              onTap: () async {
+                if (controller.loginProvider.isLogin()) {
                 } else {
-                  Get.toNamed(
+                  var data = await Get.toNamed(
                     Routes.LOGIN,
                   );
-                  // Get.to(() => const LoginPage(),
-                  //     transition: Transition.rightToLeft);
+
+                  if (data != null) {
+                    controller.setMember();
+                  }
                 }
               },
               child: Row(
@@ -51,12 +44,16 @@ class AccountView extends GetView<AccountController> {
                     height: 70,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(35),
-                      child: member?.Avatar != null
-                          ? Image.network(member!.Avatar!)
-                          : Icon(
-                              Icons.account_circle,
-                              size: 40,
-                            ),
+                      child:
+                          member?.Avatar != null && member!.Avatar!.isNotEmpty
+                              ? Image.network(
+                                  member.Avatar!,
+                                  fit: BoxFit.cover,
+                                )
+                              : Icon(
+                                  Icons.account_circle,
+                                  size: 40,
+                                ),
                     ),
                   ),
                   const SizedBox(
@@ -345,43 +342,39 @@ class AccountView extends GetView<AccountController> {
     return Scaffold(
       appBar: AppBar(
         title: Text("account".tr),
+        centerTitle: true,
         elevation: 0,
         actions: [
-          Container(
-            padding: const EdgeInsets.only(right: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () {},
-                  child: const Icon(
-                    Icons.settings,
-                    // size: 30,
-                  ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                IconBadge(
-                  onTap: () {},
-                  icon: const Icon(
-                    Icons.notifications_none,
-                    size: 30,
-                  ),
-                  itemCount: 100,
-                  maxCount: 99,
-                ),
-              ],
+          GestureDetector(
+            onTap: () async {
+              var data = await Get.toNamed(Routes.SETTING);
+              if (data != null) {
+                if (data == "out") {
+                  controller.setMember();
+                }
+              }
+            },
+            child: const Icon(
+              Icons.settings,
+              // size: 30,
             ),
+          ),
+          IconBadge(
+            onTap: () {},
+            icon: const Icon(
+              Icons.notifications_none,
+              size: 30,
+            ),
+            itemCount: 100,
+            maxCount: 99,
           ),
         ],
       ),
       body: EasyRefresh(
-        controller: _easyRefreshController,
+        controller: controller.easyRefreshController,
         child: Column(
           children: [
-            _header(),
+            Obx(() => _header(controller.member.value)),
             _buyMembership(),
             const SizedBox(
               height: 10,
@@ -390,7 +383,11 @@ class AccountView extends GetView<AccountController> {
             const SizedBox(
               height: 10,
             ),
-            RecommandListView(list: _productList),
+            Obx(() {
+              return controller.isLoding.isFalse
+                  ? RecommandListView(list: controller.productList)
+                  : Container();
+            }),
           ],
         ),
       ),

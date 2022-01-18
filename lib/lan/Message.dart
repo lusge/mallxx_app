@@ -61,14 +61,15 @@ class Messages extends Translations {
           "please_tick_agree_login": "请勾选同意后再登录",
 
           "more_exciting_after_login": "登录后更精彩",
-          "enter_mobile_email": "请输入手机号码",
+          "enter_username": "请输入用户名",
           "enter_password": "请输入密码",
           "read_and_ageree": "我已阅读并同意",
           "service_agreement": "《服务协议》及《隐私政策》《儿童/青少年个人信息保护规则》",
           "login": "登录",
-        },
-        'zh_TW': {
-          'home': "首页",
+          "register": "注册",
+          "or_join_with": "或着",
+          "username_langth": "用户名长度必须大于6",
+          "password_langth": "密码长度必须大于6"
         },
         'en_US': {
           "english": "english",
@@ -127,11 +128,15 @@ class Messages extends Translations {
           "quantity": "Quantity",
           "please_tick_agree_login": "Please tick to agree before logging in",
           "more_exciting_after_login": "More exciting after login",
-          "enter_mobile_email": "Please enter your mobile or email",
+          "enter_username": "Please enter your Username",
           "enter_password": "Please enter password",
           "read_and_ageree": "I have read and agree",
           "service_agreement": "Service Agreement",
-          "login": "Login"
+          "login": "Login",
+          "register": "Register",
+          "or_join_with": "Or join with",
+          "username_langth": "Username length must be greater than 6",
+          "password_langth": "Password length must be greater than 6"
         }
       };
 }

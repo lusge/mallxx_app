@@ -1,12 +1,34 @@
 import 'package:get/get.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
+
+import '/app/models/member_model.dart';
+import '/app/models/product_model.dart';
+import '/app/providers/login_provider.dart';
 
 class AccountController extends GetxController {
-  //TODO: Implement AccountController
+  final EasyRefreshController easyRefreshController = EasyRefreshController();
 
-  final count = 0.obs;
+  final LoginProvider loginProvider = Get.find<LoginProvider>();
+
+  final productList = RxList<Product>();
+
+  final isLoding = true.obs;
+
+  final member = Member().obs;
+
   @override
   void onInit() {
+    setMember();
     super.onInit();
+  }
+
+  void setMember() {
+    if (loginProvider.getMember() != null) {
+      member.value = loginProvider.getMember()!;
+    } else {
+      member.value = Member(); //设置成空
+    }
+    update();
   }
 
   @override
@@ -15,6 +37,8 @@ class AccountController extends GetxController {
   }
 
   @override
-  void onClose() {}
-  void increment() => count.value++;
+  void onClose() {
+    easyRefreshController.dispose();
+    super.onClose();
+  }
 }
