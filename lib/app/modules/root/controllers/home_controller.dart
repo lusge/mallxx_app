@@ -72,6 +72,7 @@ class HomeController extends GetxController {
   }
 
   void getRecommendProduct({int pageNum = 1, int pageSize = 20}) async {
+    this.pageNum = pageNum;
     var res = await productProvider.getRecommendProductList();
     currentRequestCount++;
     if (currentRequestCount >= requestCount) {
@@ -80,7 +81,9 @@ class HomeController extends GetxController {
 
     if (res != null) {
       if (res.code == 200) {
-        productList.value = res.product!;
+        if (res.product != null) {
+          productList.value = res.product!;
+        }
       } else {
         Get.snackbar("title", res.detail!);
       }

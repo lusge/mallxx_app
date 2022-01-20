@@ -20,7 +20,7 @@ class CategoryController extends GetxController {
     if (res != null) {
       isLoding.value = false;
 
-      if (res.code == 200) {
+      if (res.code == 200 && res.data != null) {
         categoryList.value = res.data!;
       }
     }

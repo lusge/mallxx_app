@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:mallxx_app/app/modules/root/controllers/account_controller.dart';
 import '/app/providers/login_provider.dart';
 import '/app/providers/member_provider.dart';
 
@@ -9,6 +10,7 @@ class LoginController extends GetxController {
   late TextEditingController passwordController = TextEditingController();
   final LoginProvider loginProvider = Get.find<LoginProvider>();
   final MemberProvider memberProvider = Get.put(MemberProvider());
+  final AccountController accountController = Get.find<AccountController>();
 
   final agreeCheckBox = true.obs;
 
@@ -49,6 +51,7 @@ class LoginController extends GetxController {
         Get.back(
           result: "OK",
         );
+        accountController.setMember();
       } else {
         Fluttertoast.showToast(
             msg: result.detail!, gravity: ToastGravity.CENTER);

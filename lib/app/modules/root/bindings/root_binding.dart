@@ -10,12 +10,8 @@ import '../controllers/root_controller.dart';
 class RootBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<AccountController>(
-      () => AccountController(),
-    );
-    Get.lazyPut<ShopCartController>(
-      () => ShopCartController(),
-    );
+    Get.put(AccountController());
+    Get.put(ShopCartController());
     Get.lazyPut<CategoryController>(
       () => CategoryController(),
     );

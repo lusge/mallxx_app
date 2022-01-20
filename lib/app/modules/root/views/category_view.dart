@@ -212,7 +212,7 @@ class CategoryView extends GetView<CategoryController> {
                 child: ListView(
                   padding: const EdgeInsets.only(top: 10.0),
                   children: [
-                    _categoryAdvertisement(),
+                    // _categoryAdvertisement(),
                     // categoryTitle("热门推荐"),
                     SizedBox(
                       child: _childrenCategory(),

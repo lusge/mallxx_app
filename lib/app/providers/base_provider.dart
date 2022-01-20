@@ -11,15 +11,9 @@ class BaseProvider extends GetConnect {
       String language = "zh-CN";
       String? localLanguage;
 
-      if (Get.deviceLocale != null) {
-        if (Get.deviceLocale?.languageCode != null) {
-          localLanguage = Get.deviceLocale?.languageCode;
-        }
-
-        if (Get.deviceLocale?.countryCode != null && localLanguage != null) {
-          String? countryCode = Get.deviceLocale?.countryCode;
-          localLanguage = localLanguage + "-" + countryCode!;
-        }
+      if (Get.locale != null) {
+        localLanguage =
+            Get.locale!.languageCode + "-" + Get.locale!.countryCode!;
       }
 
       if (localLanguage != null) {

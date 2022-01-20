@@ -36,7 +36,6 @@ class Messages extends Translations {
           "integral": "积分",
           "coupon": "优惠券",
           "follow": "关注",
-          //以下需要翻译
           "dfk": "待付款",
           "dsh": "待收货",
           "dpj": "待评价",
@@ -59,7 +58,6 @@ class Messages extends Translations {
           "product_detail": "商品详情",
           "quantity": "数量",
           "please_tick_agree_login": "请勾选同意后再登录",
-
           "more_exciting_after_login": "登录后更精彩",
           "enter_username": "请输入用户名",
           "enter_password": "请输入密码",
@@ -69,7 +67,16 @@ class Messages extends Translations {
           "register": "注册",
           "or_join_with": "或着",
           "username_langth": "用户名长度必须大于6",
-          "password_langth": "密码长度必须大于6"
+          "password_langth": "密码长度必须大于6",
+          "setting": "设置",
+          //
+          "address_setting": "地址管理",
+          "account_security": "账户安全",
+          "payment_options": "支付管理",
+          "privacy_policy": "隐私政策",
+          "language": "语言设置",
+          "country_region": "国家地区",
+          "about_me": "关于我们"
         },
         'en_US': {
           "english": "english",
@@ -136,7 +143,16 @@ class Messages extends Translations {
           "register": "Register",
           "or_join_with": "Or join with",
           "username_langth": "Username length must be greater than 6",
-          "password_langth": "Password length must be greater than 6"
+          "password_langth": "Password length must be greater than 6",
+          "setting": "Setting",
+          //
+          "address_setting": "Address Book",
+          "account_security": "Account Security",
+          "payment_options": "Payment Options",
+          "privacy_policy": "Privac Policy",
+          "language": "Language",
+          "country_region": "Country/Region",
+          "about_me": "About Me"
         }
       };
 }
