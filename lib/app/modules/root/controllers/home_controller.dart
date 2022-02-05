@@ -63,6 +63,7 @@ class HomeController extends GetxController {
 
     if (res != null) {
       if (res.code == 200) {
+        print(res.data);
         return res.data;
       } else {
         Get.snackbar("title", res.detail!);

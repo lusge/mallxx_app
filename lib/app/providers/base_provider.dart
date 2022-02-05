@@ -1,8 +1,10 @@
 import 'package:get/get.dart';
+import 'package:mallxx_app/app/providers/login_provider.dart';
 
 const String BASE_URL = "http://api.mallxx.com";
 
 class BaseProvider extends GetConnect {
+  final LoginProvider loginProvider = Get.find<LoginProvider>();
   @override
   void onInit() {
     httpClient.baseUrl = 'http://api.mallxx.com';
@@ -21,7 +23,7 @@ class BaseProvider extends GetConnect {
       }
 
       request.headers["Accept-Language"] = language;
-      request.headers["AAuthorization"] = language;
+      request.headers["authorization"] = loginProvider.getToken()!;
       return request;
     });
 

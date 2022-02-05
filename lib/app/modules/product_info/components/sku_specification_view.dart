@@ -219,7 +219,8 @@ class _SelectSpecificationsViewState extends State<SkuSpecificationView>
                         color: Color(0xffeeeeee),
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                       ),
-                      child: _defaultSkuStock?.pic != null
+                      child: _defaultSkuStock?.pic != null &&
+                              _defaultSkuStock?.pic != ""
                           ? Image.network(_defaultSkuStock!.pic!)
                           : Container(),
                     ),
@@ -251,8 +252,8 @@ class _SelectSpecificationsViewState extends State<SkuSpecificationView>
                         if (_defaultSkuStock?.lockStock != null)
                           if (_defaultSkuStock!.lockStock! >=
                               _defaultSkuStock!.stock!)
-                            const Text(
-                              "库存紧张",
+                            Text(
+                              "low".tr,
                               style: TextStyle(fontSize: 12, color: Colors.red),
                             )
                       ],

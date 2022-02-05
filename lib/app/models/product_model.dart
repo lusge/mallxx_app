@@ -77,12 +77,14 @@ class Product {
   String? detailMobileHtml;
   String? productCategoryName;
   String? brandName;
+  int? comment_number;
   List<SkuStock>? skuStock;
   List<ProductLadder>? productLadder;
   List<ProductFullReduction>? productFullReduction;
   List<ProductAttrValue>? productAttrValue;
   List<MemberPrice>? memberPrice;
   List<ProductAttribute>? productAttribute;
+  List<Parameters>? parameters;
 
   Product({
     this.id,
@@ -134,6 +136,7 @@ class Product {
     this.productAttrValue,
     this.memberPrice,
     this.productAttribute,
+    this.parameters,
   });
 
   Product.fromJson(Map<String, dynamic> json) {
@@ -179,6 +182,7 @@ class Product {
     detailHtml = json['detail_html'];
     detailMobileHtml = json['detail_mobile_html'];
     productCategoryName = json['product_category_name'];
+    comment_number = json["comment_number"];
     brandName = json['brand_name'];
     if (json['sku_stock'] != null) {
       skuStock = <SkuStock>[];
@@ -214,6 +218,13 @@ class Product {
       productAttribute = <ProductAttribute>[];
       json['product_attribute'].forEach((v) {
         productAttribute!.add(new ProductAttribute.fromJson(v));
+      });
+    }
+
+    if (json["parameters"] != null) {
+      parameters = <Parameters>[];
+      json["parameters"].forEach((v) {
+        parameters!.add(new Parameters.fromJson(v));
       });
     }
   }
@@ -377,5 +388,15 @@ class ProductAttribute {
     type = json['type'];
     name = json['name'];
     inputList = json['input_list'];
+  }
+}
+
+class Parameters {
+  String? key;
+  String? value;
+  Parameters({this.key, this.value});
+  Parameters.fromJson(Map<String, dynamic> json) {
+    key = json["key"];
+    value = json["value"];
   }
 }

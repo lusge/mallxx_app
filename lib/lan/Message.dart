@@ -76,7 +76,9 @@ class Messages extends Translations {
           "privacy_policy": "隐私政策",
           "language": "语言设置",
           "country_region": "国家地区",
-          "about_me": "关于我们"
+          "about_me": "关于我们",
+          "low": "库存紧张",
+          "add_success": "添加成功"
         },
         'en_US': {
           "english": "english",

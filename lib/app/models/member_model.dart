@@ -37,6 +37,7 @@ class Member {
   int? Integral;
   int? Coupon;
   int? Followers;
+  String? nickname;
 
   Member({
     this.Id,
@@ -54,6 +55,7 @@ class Member {
     this.Integral,
     this.Coupon,
     this.Followers,
+    this.nickname,
   });
 
   Map<String, dynamic> toJson() {
@@ -93,6 +95,7 @@ class Member {
       Coupon: json["coupon"],
       Integral: json["integral"],
       Followers: json["followers"],
+      nickname: json["nickname"],
     );
   }
 }

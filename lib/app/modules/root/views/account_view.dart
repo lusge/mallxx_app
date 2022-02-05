@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:get/get.dart';
@@ -372,6 +374,12 @@ class AccountView extends GetView<AccountController> {
       ),
       body: EasyRefresh(
         controller: controller.easyRefreshController,
+        header: Platform.isAndroid
+            ? MaterialHeader()
+            : BallPulseHeader(color: Colors.grey),
+        footer: Platform.isAndroid
+            ? MaterialFooter()
+            : BallPulseFooter(color: Colors.grey),
         child: Column(
           children: [
             Obx(() => _header(controller.member.value)),

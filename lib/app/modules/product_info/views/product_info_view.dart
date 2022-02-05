@@ -15,7 +15,7 @@ import '../components/sku_specification_view.dart';
 class ProductInfoView extends GetView<ProductInfoController> {
   // late model.Product? _product = model.Product();
 
-  Widget _bottomBar() {
+  Widget _bottomBar(BuildContext context) {
     return BottomAppBar(
       child: Container(
         padding: const EdgeInsets.only(
@@ -43,11 +43,9 @@ class ProductInfoView extends GetView<ProductInfoController> {
               flex: 3,
               child: GestureDetector(
                 onTap: () {
-                  // if (!logic.isSelectedSku()) {
-                  //   _showSpec(context, logic);
-                  // } else {
-                  //   logic.infoClickAddCart();
-                  // }
+                  if (!controller.onAddCart()) {
+                    _showSpec(context);
+                  }
                 },
                 child: Container(
                   alignment: Alignment.center,
@@ -76,12 +74,9 @@ class ProductInfoView extends GetView<ProductInfoController> {
               flex: 3,
               child: GestureDetector(
                 onTap: () {
-                  print("buy now");
-                  // if (!logic.isSelectedSku()) {
-                  //   _showSpec(context, logic);
-                  // } else {
-                  //   logic.infoClickBuyNow();
-                  // }
+                  if (!controller.onBuyNow()) {
+                    _showSpec(context);
+                  }
                 },
                 child: Container(
                   alignment: Alignment.center,
@@ -119,10 +114,11 @@ class ProductInfoView extends GetView<ProductInfoController> {
       leading: Platform.isIOS
           ? GestureDetector(
               child: Container(
-                  padding: EdgeInsets.symmetric(vertical: scale > 2 ? 0 : 10),
-                  child: Image.asset(
-                    "assets/icons/back_status.png",
-                  )),
+                padding: EdgeInsets.symmetric(vertical: scale > 2 ? 0 : 10),
+                child: Image.asset(
+                  "assets/icons/back_status.png",
+                ),
+              ),
               onTap: () {
                 Get.back();
               },
@@ -228,6 +224,7 @@ class ProductInfoView extends GetView<ProductInfoController> {
             }
 
             controller.buyCount.value = count;
+            controller.onFinish();
           },
         );
       },
@@ -239,7 +236,7 @@ class ProductInfoView extends GetView<ProductInfoController> {
     return Obx(() {
       return controller.isLoading.isFalse
           ? Scaffold(
-              bottomNavigationBar: _bottomBar(),
+              bottomNavigationBar: _bottomBar(context),
               backgroundColor: Colors.grey[200],
               body: Stack(
                 children: [
@@ -312,8 +309,13 @@ class ProductInfoView extends GetView<ProductInfoController> {
                                 ),
                                 InkWell(
                                   onTap: () {
+                                    //attribue
                                     Get.bottomSheet(
-                                      AttributeView(),
+                                      AttributeView(
+                                        list: controller
+                                                .productInfo.value.parameters ??
+                                            [],
+                                      ),
                                       backgroundColor: Colors.white,
                                     );
                                   },

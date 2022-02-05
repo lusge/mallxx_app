@@ -116,7 +116,10 @@ class CategoryView extends GetView<CategoryController> {
               hoverColor: Colors.white24,
               focusColor: Colors.white24,
               onTap: () {
-                Get.toNamed(Routes.PRODUCT_LIST);
+                Get.toNamed(Routes.PRODUCT_LIST, arguments: {
+                  "name": item.name,
+                  "id": item.id,
+                });
               },
               child: Container(
                 // margin: const EdgeInsets.all(10),
@@ -157,26 +160,26 @@ class CategoryView extends GetView<CategoryController> {
     );
   }
 
-  Widget _categoryAdvertisement() {
-    return InkWell(
-      onTap: () {},
-      highlightColor: const Color(0xfffbfbfb),
-      child: Container(
-        width: double.infinity,
-        height: 100,
-        margin: const EdgeInsets.only(left: 5.0, right: 5.0),
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: NetworkImage(
-              "https://img.alicdn.com/tps/i4/TB1l573vlv0gK0jSZKbSuvK2FXa.jpg_490x490q100.jpg_.webp",
-            ),
-            fit: BoxFit.fill,
-          ),
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-      ),
-    );
-  }
+  // Widget _categoryAdvertisement() {
+  //   return InkWell(
+  //     onTap: () {},
+  //     highlightColor: const Color(0xfffbfbfb),
+  //     child: Container(
+  //       width: double.infinity,
+  //       height: 100,
+  //       margin: const EdgeInsets.only(left: 5.0, right: 5.0),
+  //       decoration: BoxDecoration(
+  //         image: DecorationImage(
+  //           image: NetworkImage(
+  //             "https://img.alicdn.com/tps/i4/TB1l573vlv0gK0jSZKbSuvK2FXa.jpg_490x490q100.jpg_.webp",
+  //           ),
+  //           fit: BoxFit.fill,
+  //         ),
+  //         borderRadius: BorderRadius.circular(10.0),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -197,7 +200,6 @@ class CategoryView extends GetView<CategoryController> {
           List<Category>? item = categorys[clickSelectIndex].children;
           int l = item!.length;
           int c = (l / 3.0).ceil();
-          print(c);
           double height = (100 * c.toDouble()) + (c <= 1 ? 20 : 10);
           print(height);
           return Row(

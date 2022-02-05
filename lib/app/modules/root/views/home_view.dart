@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 
@@ -48,6 +50,12 @@ class HomeView extends GetView<HomeController> {
         () {
           return controller.isLoading.isFalse
               ? EasyRefresh(
+                  header: Platform.isAndroid
+                      ? MaterialHeader()
+                      : BallPulseHeader(color: Colors.grey),
+                  footer: Platform.isAndroid
+                      ? MaterialFooter()
+                      : BallPulseFooter(color: Colors.grey),
                   controller: controller.easyRefreshController,
                   enableControlFinishLoad: true,
                   enableControlFinishRefresh: true,
@@ -62,7 +70,7 @@ class HomeView extends GetView<HomeController> {
                     children: [
                       AdPageView(adList: controller.adList.value),
                       AdPromotionView(list: controller.promotionAdList.value),
-                      FlashSaleView(),
+                      // FlashSaleView(),
                       RecommandListView(
                         list: controller.productList.value,
                       ),

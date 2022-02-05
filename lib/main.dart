@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:get/get.dart';
 
@@ -51,6 +52,7 @@ void main() async {
           ),
         ),
       ),
+      builder: EasyLoading.init(),
     ),
   );
 }

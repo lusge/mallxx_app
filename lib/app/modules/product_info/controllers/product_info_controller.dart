@@ -1,13 +1,20 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:mallxx_app/app/models/product_model.dart';
+import '/app/models/member_model.dart';
+import '/app/providers/cart_provider.dart';
+import '/app/routes/app_pages.dart';
+import '/app/models/product_model.dart';
+import '/app/providers/login_provider.dart';
 import '/app/providers/product_provider.dart';
 
 class ProductInfoController extends GetxController {
   final ProductProvider productProvider = Get.put(ProductProvider());
+  final LoginProvider loginProvider = Get.find<LoginProvider>();
+  final CartProvider cartProvider = Get.put(CartProvider());
 
   final isLoading = false.obs;
 
@@ -44,6 +51,8 @@ class ProductInfoController extends GetxController {
 
   final selectSpecText = "".obs;
   final defaultPrice = 0.0.obs;
+
+  final last_click = 0.obs; //1, click add cart , 2, click buy now
 
   @override
   void onInit() {
@@ -93,9 +102,59 @@ class ProductInfoController extends GetxController {
     }
   }
 
-  void clickAddCart() {}
+  void onFinish() {
+    if (last_click.value == 1) {
+      onAddCart();
+    } else if (last_click.value == 2) {
+      onBuyNow();
+    }
+  }
 
-  void clickBuyNow() {}
+  bool onAddCart() {
+    if (defaultSku.value.id == null) {
+      last_click.value = 1;
+      return false;
+    }
+
+    if (!loginProvider.isLogin()) {
+      Get.toNamed(Routes.LOGIN);
+    } else {
+      Member? member = loginProvider.getMember();
+      if (member == null) {
+        Get.toNamed(Routes.LOGIN);
+      } else {
+        Map data = {
+          "product_id": productInfo.value.id,
+          "sku_id": defaultSku.value.id,
+          "quantity": buyCount.value,
+          "member_id": member.Id,
+          "member_nickname": member.nickname,
+        };
+        print(data.toString());
+        cartProvider.addCart(data).then((value) {
+          if (value.code == 403) {
+            Get.toNamed(Routes.LOGIN);
+          } else if (value.code == 200) {
+            Fluttertoast.showToast(
+                msg: "add_success".tr, gravity: ToastGravity.CENTER);
+          } else {
+            Fluttertoast.showToast(
+                msg: value.detail, gravity: ToastGravity.CENTER);
+          }
+        });
+      }
+    }
+    return true;
+  }
+
+  bool onBuyNow() {
+    if (defaultSku.value.id == null) {
+      last_click.value = 2;
+      return false;
+    }
+
+    return true;
+  }
 
   void setDefaultSku(SkuStock? sku) {
     if (sku != null) {
@@ -123,5 +182,9 @@ class ProductInfoController extends GetxController {
   }
 
   @override
-  void onClose() {}
+  void onClose() {
+    super.onClose();
+    // productProvider.dispose();
+    cartProvider.dispose();
+  }
 }
