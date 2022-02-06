@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import '/app/modules/root/controllers/shop_cart_controller.dart';
 import '/app/models/member_model.dart';
 import '/app/providers/cart_provider.dart';
 import '/app/routes/app_pages.dart';
@@ -14,7 +15,8 @@ import '/app/providers/product_provider.dart';
 class ProductInfoController extends GetxController {
   final ProductProvider productProvider = Get.put(ProductProvider());
   final LoginProvider loginProvider = Get.find<LoginProvider>();
-  final CartProvider cartProvider = Get.put(CartProvider());
+  final CartProvider cartProvider = Get.find<CartProvider>();
+  final ShopCartController shopCartController = Get.find<ShopCartController>();
 
   final isLoading = false.obs;
 
@@ -42,7 +44,9 @@ class ProductInfoController extends GetxController {
   static double DEFAULT_SCROLLER = 100;
 
   GlobalKey goodsKey = GlobalKey();
+
   ScrollController scrollController = ScrollController();
+
   final toolbarOpacity = 0.0.obs;
   final productInfo = Product().obs;
 
@@ -130,11 +134,12 @@ class ProductInfoController extends GetxController {
           "member_id": member.Id,
           "member_nickname": member.nickname,
         };
-        print(data.toString());
+
         cartProvider.addCart(data).then((value) {
           if (value.code == 403) {
             Get.toNamed(Routes.LOGIN);
           } else if (value.code == 200) {
+            shopCartController.getCarts();
             Fluttertoast.showToast(
                 msg: "add_success".tr, gravity: ToastGravity.CENTER);
           } else {
@@ -152,7 +157,7 @@ class ProductInfoController extends GetxController {
       last_click.value = 2;
       return false;
     }
-
+    Get.toNamed(Routes.ORDER_CONFIRM);
     return true;
   }
 
@@ -184,7 +189,5 @@ class ProductInfoController extends GetxController {
   @override
   void onClose() {
     super.onClose();
-    // productProvider.dispose();
-    cartProvider.dispose();
   }
 }

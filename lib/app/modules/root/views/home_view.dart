@@ -7,11 +7,9 @@ import 'package:get/get.dart';
 
 import 'package:icon_badge/icon_badge.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
-
+import '/app/routes/app_pages.dart';
 import '/app/components/recommend_list_view.dart';
-import '/app/components/flash_sale_value.dart';
 import '/app/components/ad_promotion_view.dart';
-
 import '/app/modules/root/controllers/home_controller.dart';
 import '/app/components/search_header.dart';
 import '/app/components/ad_page_view.dart';
@@ -35,7 +33,7 @@ class HomeView extends GetView<HomeController> {
             maxCount: 99,
             hideZero: true,
             onTap: () {
-              print('test');
+              Get.toNamed(Routes.MESSAGE_CENTER);
             },
           ),
         ],

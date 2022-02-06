@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 import 'package:get/get.dart';
-import 'package:mallxx_app/app/components/number_item.dart';
-import 'package:mallxx_app/app/models/cart_model.dart';
+import 'package:icon_badge/icon_badge.dart';
+import '/app/components/number_item.dart';
+import '/app/models/cart_model.dart';
+import '/app/routes/app_pages.dart';
 import '/app/modules/root/controllers/shop_cart_controller.dart';
 
 class ShopCartView extends GetView<ShopCartController> {
@@ -31,14 +35,22 @@ class ShopCartView extends GetView<ShopCartController> {
                   SizedBox(
                     width: 20,
                     height: 20,
-                    child: InkWell(
-                      onTap: () {
-                        print("object");
-                        controller.isAllCheck.toggle();
-                      },
-                      child: controller.isAllCheck.isTrue
-                          ? Image.asset("assets/icons/checkSelected.png")
-                          : Image.asset("assets/icons/checkNormal.png"),
+                    child: Obx(
+                      () => Checkbox(
+                        tristate: true,
+                        shape: const CircleBorder(),
+                        activeColor: Colors.red,
+                        checkColor: Colors.white,
+                        hoverColor: Colors.white,
+                        focusColor: Colors.red,
+                        side: const BorderSide(
+                          color: Colors.white,
+                        ),
+                        value: controller.isAllCheck.value,
+                        onChanged: (value) {
+                          controller.onIsAllCheck();
+                        },
+                      ),
                     ),
                   ),
                   Container(
@@ -57,7 +69,8 @@ class ShopCartView extends GetView<ShopCartController> {
                     children: [
                       RichText(
                         text: TextSpan(
-                          text: "price".trArgs(["${controller.total.value}"]),
+                          text: "price"
+                              .trArgs(["${controller.totalPrice.value}"]),
                           style: const TextStyle(
                             color: Colors.red,
                             fontSize: 20,
@@ -75,9 +88,11 @@ class ShopCartView extends GetView<ShopCartController> {
                         alignment: Alignment.center,
                         child: GestureDetector(
                           behavior: HitTestBehavior.opaque,
-                          onTap: () {},
+                          onTap: () {
+                            controller.onCheckout();
+                          },
                           child: Text(
-                            "settlement".tr,
+                            "checkout".tr,
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 20,
@@ -89,6 +104,7 @@ class ShopCartView extends GetView<ShopCartController> {
                   )
                 : Container(
                     alignment: Alignment.center,
+                    margin: EdgeInsets.only(right: 20),
                     height: 30,
                     width: 80,
                     decoration: BoxDecoration(
@@ -99,7 +115,7 @@ class ShopCartView extends GetView<ShopCartController> {
                     child: GestureDetector(
                       behavior: HitTestBehavior.opaque,
                       onTap: () {
-                        print("点击删除");
+                        controller.onClickDelete();
                       },
                       child: Text(
                         "delete".tr,
@@ -122,15 +138,22 @@ class ShopCartView extends GetView<ShopCartController> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
-            width: 20,
-            height: 20,
-            child: GestureDetector(
-              onTap: () {
-                item.check = !item.check!;
+            width: 30,
+            height: 30,
+            child: Checkbox(
+              tristate: true,
+              shape: const CircleBorder(),
+              activeColor: Colors.red,
+              checkColor: Colors.white,
+              hoverColor: Colors.white,
+              focusColor: Colors.red,
+              side: const BorderSide(
+                  // color: Colors.white,
+                  ),
+              value: item.check!,
+              onChanged: (value) {
+                controller.onItemCheck(item);
               },
-              child: item.check!
-                  ? Image.asset("assets/icons/checkSelected.png")
-                  : Image.asset("assets/icons/checkNormal.png"),
             ),
           ),
           Expanded(
@@ -145,14 +168,20 @@ class ShopCartView extends GetView<ShopCartController> {
                     padding: const EdgeInsets.only(right: 10),
                     height: 100,
                     width: 100,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: FadeInImage.assetNetwork(
-                        fadeOutDuration: const Duration(milliseconds: 100),
-                        fadeOutCurve: Curves.easeOut,
-                        fit: BoxFit.cover,
-                        placeholder: "assets/images/bg.png",
-                        image: item.productPic!,
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.toNamed(Routes.PRODUCT_INFO,
+                            arguments: {"id": item.productId!});
+                      },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: FadeInImage.assetNetwork(
+                          fadeOutDuration: const Duration(milliseconds: 100),
+                          fadeOutCurve: Curves.easeOut,
+                          fit: BoxFit.cover,
+                          placeholder: "assets/images/bg.png",
+                          image: item.productPic!,
+                        ),
                       ),
                     ),
                   ),
@@ -180,7 +209,7 @@ class ShopCartView extends GetView<ShopCartController> {
                               Container(
                                 color: Colors.black12,
                                 child: Text(
-                                  item.attribute!,
+                                  item.attribute ?? "",
                                   style: const TextStyle(fontSize: 12),
                                 ),
                               ),
@@ -205,10 +234,12 @@ class ShopCartView extends GetView<ShopCartController> {
                                     number: item.quantity!,
                                     isEnable: true,
                                     addClick: (value) {
-                                      item.quantity = value;
+                                      controller.onChangeCartQuantity(
+                                          item, value);
                                     },
                                     subClick: (value) {
-                                      item.quantity = value;
+                                      controller.onChangeCartQuantity(
+                                          item, value);
                                     },
                                   ),
                                 ),
@@ -235,65 +266,87 @@ class ShopCartView extends GetView<ShopCartController> {
         title: Text("cart".tr),
         centerTitle: true,
         actions: [
-          Row(
-            children: [
-              GestureDetector(
-                behavior: HitTestBehavior.opaque,
-                onTap: () {
-                  controller.isEdit.toggle();
-                },
+          Obx(
+            () => GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
+                controller.isEdit.toggle();
+              },
+              child: Container(
+                alignment: Alignment.center,
                 child: Text(
                   controller.isEdit.isFalse ? "edit".tr : "finish".tr,
                   style: const TextStyle(color: Colors.black),
                 ),
               ),
-              const SizedBox(
-                width: 5,
-              ),
-              GestureDetector(
-                onTap: () {},
-                child: const Icon(
-                  Icons.notification_add,
-                  color: Colors.grey,
-                ),
-              ),
-              const SizedBox(width: 15),
-            ],
-          )
+            ),
+          ),
 
+          IconBadge(
+            onTap: () {
+              Get.toNamed(Routes.MESSAGE_CENTER);
+            },
+            icon: const Icon(
+              Icons.notifications_none,
+              // size: 30,
+            ),
+            itemCount: 100,
+            maxCount: 99,
+          ),
           //
         ],
       ),
-      body: Stack(
-        alignment: Alignment.center,
-        fit: StackFit.expand,
-        children: [
-          EasyRefresh(
-            controller: controller.easyRefreshController,
-            child: Column(
-              children: [
-                Container(
-                  color: Colors.white,
-                  height: 110.00 * controller.cartList.length,
-                  child: ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: controller.cartList.length,
-                    itemBuilder: (BuildContext context, index) {
-                      return _cartItem(controller.cartList[index]);
+      body: Obx(
+        () => controller.isLoading.isFalse
+            ? Stack(
+                alignment: Alignment.center,
+                fit: StackFit.expand,
+                children: [
+                  EasyRefresh(
+                    controller: controller.easyRefreshController,
+                    header: Platform.isAndroid
+                        ? MaterialHeader()
+                        : BallPulseHeader(color: Colors.grey),
+                    footer: Platform.isAndroid
+                        ? MaterialFooter()
+                        : BallPulseFooter(color: Colors.grey),
+                    enableControlFinishLoad: false,
+                    enableControlFinishRefresh: true,
+                    onRefresh: () async {
+                      controller.getCarts();
                     },
+                    child: Column(
+                      children: [
+                        Container(
+                          color: Colors.white,
+                          height: 110.00 * controller.cartList.length,
+                          child: ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: controller.cartList.length,
+                            itemBuilder: (BuildContext context, index) {
+                              return GetBuilder<ShopCartController>(
+                                  id: "cartItem",
+                                  init: controller,
+                                  builder: (_) =>
+                                      _cartItem(controller.cartList[index]));
+                            },
+                          ),
+                        ),
+                        // RecommandList(list: _productList),
+                      ],
+                    ),
                   ),
-                ),
-                // RecommandList(list: _productList),
-              ],
-            ),
-          ),
-          Positioned(
-            bottom: 0.0,
-            height: 60,
-            width: MediaQuery.of(context).size.width,
-            child: _bottomToolBar(),
-          ),
-        ],
+                  Positioned(
+                    bottom: 0.0,
+                    height: 60,
+                    width: MediaQuery.of(context).size.width,
+                    child: _bottomToolBar(),
+                  ),
+                ],
+              )
+            : Center(
+                child: CircularProgressIndicator(),
+              ),
       ),
     );
   }

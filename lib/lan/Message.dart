@@ -27,7 +27,7 @@ class Messages extends Translations {
           "end_in": "结束时间",
           "edit": "编辑",
           "cart_choice": "全选",
-          "settlement": "结算",
+          "checkout": "结算",
           "delete": "删除",
           "finish": "完成",
           "open_member": "立即开通",
@@ -78,7 +78,8 @@ class Messages extends Translations {
           "country_region": "国家地区",
           "about_me": "关于我们",
           "low": "库存紧张",
-          "add_success": "添加成功"
+          "add_success": "添加成功",
+          "order_confirm": "确认订单"
         },
         'en_US': {
           "english": "english",
@@ -104,7 +105,7 @@ class Messages extends Translations {
           "end_in": "End in",
           "edit": "Edit",
           "cart_choice": "All",
-          "settlement": "Pay",
+          "checkout": "Checkout",
           "delete": "Delete",
           "finish": "Finish",
           "open_member": "Open Now",

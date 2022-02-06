@@ -362,7 +362,9 @@ class AccountView extends GetView<AccountController> {
             ),
           ),
           IconBadge(
-            onTap: () {},
+            onTap: () {
+              Get.toNamed(Routes.MESSAGE_CENTER);
+            },
             icon: const Icon(
               Icons.notifications_none,
               size: 30,
