@@ -30,6 +30,7 @@ class Messages extends Translations {
           "checkout": "结算",
           "delete": "删除",
           "finish": "完成",
+
           "open_member": "立即开通",
           "more_discounts": "享受更多折扣",
           "buy_member": "开通会员",
@@ -79,7 +80,19 @@ class Messages extends Translations {
           "about_me": "关于我们",
           "low": "库存紧张",
           "add_success": "添加成功",
-          "order_confirm": "确认订单"
+          "order_confirm": "确认订单",
+          "pay": "支付",
+          "order_pay": "订单支付",
+          "order_detail": "订单详细",
+          "order_pay_success": "支付成功",
+          "my_address_book": "我的收货地址",
+          "cancel": "取消",
+          "hint": "温馨提示",
+          "delete_address_book": "确定要删除该地址吗?",
+          "edit_address": "编辑收货地址",
+          "add_address": "添加收货地址",
+          "close": "关闭",
+          "data_failed": "数据错误"
         },
         'en_US': {
           "english": "english",

@@ -55,6 +55,11 @@ class _ProductInfoViewState extends State<ProductInfoView> {
                       child: Image.network(
                         _images[index],
                         fit: BoxFit.fitWidth,
+                        // loadingBuilder: (context, child, loadingProgress) {
+                        //   return loadingProgress == null
+                        //       ? child
+                        //       : LinearProgressIndicator();
+                        // },
                       ),
                     );
                   },

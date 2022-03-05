@@ -144,6 +144,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.5.0"
+  flutter_pickers:
+    dependency: "direct main"
+    description:
+      name: flutter_pickers
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.9"
   flutter_screenutil:
     dependency: "direct main"
     description:

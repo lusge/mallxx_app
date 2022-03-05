@@ -1,7 +1,7 @@
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:get/get.dart';
-import '/app/providers/cart_provider.dart';
+import '../providers/cart_provider.dart';
 import '/app/routes/app_pages.dart';
 import '/app/models/cart_model.dart';
 
@@ -23,7 +23,7 @@ class ShopCartController extends GetxController {
   void onInit() {
     super.onInit();
 
-    getCarts();
+    // getCarts();
   }
 
   void getCarts() async {
@@ -31,9 +31,10 @@ class ShopCartController extends GetxController {
     isLoading.value = false;
     if (response.code == 200 && response.data != null) {
       cartList.value = response.data!;
-      easyRefreshController.finishRefresh(success: true);
+
       calculateTotalPrice();
     }
+    easyRefreshController.finishRefresh(success: true);
   }
 
   void onChangeCartQuantity(Cart cart, int quantity) {

@@ -1,7 +1,7 @@
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:get/get.dart';
-import '/app/providers/advertisement_provider.dart';
-import '/app/providers/product_provider.dart';
+import '../providers/product_provider.dart';
+import '../providers/advertisement_provider.dart';
 import '/app/models/advertisement_model.dart';
 import '/app/models/product_model.dart';
 
@@ -53,8 +53,8 @@ class HomeController extends GetxController {
 
   Future<List<Advertisement>?> getAdList(
       {required int pos, int categoryId = 0}) async {
-    final AdvertisementList? res = await advertisemenProvider
-        .getAdvertisement(pos, category_id: categoryId);
+    final AdvertisementList? res =
+        await advertisemenProvider.getAdvertise(pos, category_id: categoryId);
 
     currentRequestCount++;
     if (currentRequestCount >= requestCount) {

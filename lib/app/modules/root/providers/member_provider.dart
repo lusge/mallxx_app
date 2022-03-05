@@ -3,8 +3,8 @@ import '/app/providers/base_provider.dart';
 import '/app/models/member_model.dart';
 
 class MemberProvider extends BaseProvider {
-  static const String loginUrl = "/v1/login";
-  static const String registerUrl = "/v1/register";
+  static const String loginUrl = "/login";
+  static const String registerUrl = "/register";
   @override
   void onInit() {
     super.onInit();

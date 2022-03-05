@@ -3,7 +3,7 @@ import '/app/providers/base_provider.dart';
 import '/app/models/category_model.dart';
 
 class CategoryProvider extends BaseProvider {
-  static const String categoryWithChildren = "/v1/category/list/children";
+  static const String categoryWithChildren = "/product/category/list/children";
   @override
   void onInit() {
     httpClient.defaultDecoder = (map) {

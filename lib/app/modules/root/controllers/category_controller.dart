@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import '/app/models/category_model.dart';
-import '/app/providers/category_provider.dart';
+import '../providers/category_provider.dart';
 
 class CategoryController extends GetxController {
   final CategoryProvider categoryProvider = Get.put(CategoryProvider());

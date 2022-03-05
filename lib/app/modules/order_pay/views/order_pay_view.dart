@@ -9,7 +9,7 @@ class OrderPayView extends GetView<OrderPayController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('OrderPayView'),
+        title: Text('order_pay'.tr),
         centerTitle: true,
       ),
       body: Center(

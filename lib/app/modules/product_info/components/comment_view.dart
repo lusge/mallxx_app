@@ -48,7 +48,7 @@ class _CommentState extends State<CommentView> {
                   children: [
                     CircleAvatar(
                       backgroundImage: NetworkImage(
-                        "http://static.mallxx.com/image/2022-01-06-20-25-51/4f84f02beb6427bc9a6d8d09d2376746.jpeg",
+                        "http://static.a22c.com/202202222126144839.jpeg",
                       ),
                     ),
                     const SizedBox(width: 6),
@@ -85,7 +85,7 @@ class _CommentState extends State<CommentView> {
                   children: [
                     CircleAvatar(
                       backgroundImage: NetworkImage(
-                        "http://static.mallxx.com/image/2022-01-06-20-25-51/4f84f02beb6427bc9a6d8d09d2376746.jpeg",
+                        "http://static.a22c.com/202202222126144839.jpeg",
                       ),
                     ),
                     Column(

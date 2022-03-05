@@ -1,12 +1,30 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 
 class OrderDetailController extends GetxController {
-  //TODO: Implement OrderDetailController
-
-  final count = 0.obs;
+  final appBarStatusText = "".obs;
+  late final Timer timer;
+  double nowUnixTime = 100;
   @override
   void onInit() {
     super.onInit();
+
+    timer = Timer.periodic(Duration(seconds: 1), (value) {
+      nowUnixTime--;
+      if (nowUnixTime <= 0) {
+        timer.cancel();
+      }
+      paraseTime(nowUnixTime);
+      print(nowUnixTime);
+    });
+  }
+
+  void paraseTime(double difference) {
+    int minute = difference ~/ 60;
+    int sec = (difference % 60).toInt();
+    appBarStatusText.value = "等待付款 ${minute}分钟${sec}秒";
+    print(appBarStatusText);
   }
 
   @override
@@ -15,6 +33,8 @@ class OrderDetailController extends GetxController {
   }
 
   @override
-  void onClose() {}
-  void increment() => count.value++;
+  void onClose() {
+    super.onClose();
+    timer.cancel();
+  }
 }

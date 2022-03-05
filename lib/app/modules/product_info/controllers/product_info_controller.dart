@@ -6,16 +6,16 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '/app/modules/root/controllers/shop_cart_controller.dart';
 import '/app/models/member_model.dart';
-import '/app/providers/cart_provider.dart';
 import '/app/routes/app_pages.dart';
 import '/app/models/product_model.dart';
 import '/app/providers/login_provider.dart';
-import '/app/providers/product_provider.dart';
+import '../providers/product_info_provider.dart';
 
 class ProductInfoController extends GetxController {
-  final ProductProvider productProvider = Get.put(ProductProvider());
+  final ProductInfoProvider productInfoProvider =
+      Get.put(ProductInfoProvider());
   final LoginProvider loginProvider = Get.find<LoginProvider>();
-  final CartProvider cartProvider = Get.find<CartProvider>();
+
   final ShopCartController shopCartController = Get.find<ShopCartController>();
 
   final isLoading = false.obs;
@@ -96,7 +96,7 @@ class ProductInfoController extends GetxController {
   }
 
   void getProductInfo() async {
-    var res = await productProvider.getProductInfo(productId);
+    var res = await productInfoProvider.getProductInfo(productId);
     if (res.code == 200) {
       productInfo.value = res.product!;
       defaultPrice.value = productInfo.value.price!;
@@ -135,7 +135,7 @@ class ProductInfoController extends GetxController {
           "member_nickname": member.nickname,
         };
 
-        cartProvider.addCart(data).then((value) {
+        productInfoProvider.addCart(data).then((value) {
           if (value.code == 403) {
             Get.toNamed(Routes.LOGIN);
           } else if (value.code == 200) {
@@ -157,7 +157,14 @@ class ProductInfoController extends GetxController {
       last_click.value = 2;
       return false;
     }
-    Get.toNamed(Routes.ORDER_CONFIRM);
+
+    Map data = {
+      "type": "product",
+      "product_id": productInfo.value.id,
+      "sku_id": defaultSku.value.id,
+      "quantity": buyCount.value,
+    };
+    Get.toNamed(Routes.ORDER_CONFIRM, arguments: data);
     return true;
   }
 
@@ -189,5 +196,6 @@ class ProductInfoController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    productInfoProvider.dispose();
   }
 }

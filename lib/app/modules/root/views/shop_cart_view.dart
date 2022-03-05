@@ -81,16 +81,16 @@ class ShopCartView extends GetView<ShopCartController> {
                       const SizedBox(
                         width: 10,
                       ),
-                      Container(
-                        color: Colors.red,
-                        width: 120,
-                        height: 60,
-                        alignment: Alignment.center,
-                        child: GestureDetector(
-                          behavior: HitTestBehavior.opaque,
-                          onTap: () {
-                            controller.onCheckout();
-                          },
+                      GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        onTap: () {
+                          controller.onCheckout();
+                        },
+                        child: Container(
+                          color: Colors.red,
+                          width: 120,
+                          height: 60,
+                          alignment: Alignment.center,
                           child: Text(
                             "checkout".tr,
                             style: const TextStyle(

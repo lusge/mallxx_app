@@ -14,16 +14,19 @@ class AdvertisementProvider extends BaseProvider {
     super.onInit();
   }
 
-  Future<AdvertisementList?> getAdvertisement(int pos,
+  Future<AdvertisementList?> getAdvertise(int pos,
       {int category_id = 0}) async {
     final response =
-        await get('/v1/advertisement/list/?pos=$pos&category_id=$category_id');
+        await get('/advertise/api/list/?pos=$pos&category_id=$category_id');
+    print(response.body);
+    print("object");
     return response.body;
   }
 
-  Future<Response<AdvertisementList>> postAdvertisement(
+  Future<Response<AdvertisementList>> postAdvertise(
           Advertisement advertisement) async =>
       await post('advertisement', advertisement);
+
   Future<Response> deleteAdvertisement(int id) async =>
       await delete('advertisement/$id');
 }

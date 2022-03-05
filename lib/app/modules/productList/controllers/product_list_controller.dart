@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:get/get.dart';
-
-import '/app/providers/product_provider.dart';
+import '../providers/porduct_list_provider.dart';
 import '/app/models/product_model.dart';
 
 class ProductListController extends GetxController {
-  final ProductProvider productProvider = Get.put(ProductProvider());
+  final ProductListProvider productListProvider =
+      Get.put(ProductListProvider());
   final EasyRefreshController easyRefreshController = EasyRefreshController();
 
   Map? mp = Get.arguments;
@@ -51,7 +51,7 @@ class ProductListController extends GetxController {
   }
 
   void getList() async {
-    final productList = await productProvider.getCategoryProductList(
+    final productList = await productListProvider.getCategoryProductList(
       pageNum: pageNum,
       categoryIds: [mp!["id"]],
       brandIds: [],
@@ -60,9 +60,6 @@ class ProductListController extends GetxController {
       sort: sort.value,
     );
     EasyLoading.dismiss();
-    print(pageNum);
-    print(productList.code);
-    print(productList.detail);
     if (productList.code == 200) {
       if (pageNum == 1) {
         list.clear();
@@ -98,6 +95,7 @@ class ProductListController extends GetxController {
   @override
   void onClose() {
     easyRefreshController.dispose();
+    productListProvider.dispose();
     super.onClose();
   }
 }

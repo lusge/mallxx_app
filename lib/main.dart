@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:get/get.dart';
+import 'package:mallxx_app/app/modules/root/bindings/root_binding.dart';
+import 'package:mallxx_app/app/modules/root/views/root_view.dart';
 
 import 'app/routes/app_pages.dart';
 import 'application.dart';
@@ -20,10 +22,12 @@ void main() async {
     ));
     // SystemChrome.setEnabledSystemUIOverlays([]);
   }
+
   runApp(
     GetMaterialApp(
       title: "Mallxx",
       initialRoute: AppPages.INITIAL,
+      // home: RootView(),
       getPages: AppPages.routes,
       translations: Messages(),
       locale: Get.deviceLocale,

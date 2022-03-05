@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mallxx_app/app/modules/root/controllers/account_controller.dart';
 import '/app/providers/login_provider.dart';
-import '/app/providers/member_provider.dart';
+import '../../root/providers/member_provider.dart';
 
 class LoginController extends GetxController {
   late TextEditingController usernameController = TextEditingController();

@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import '/app/modules/root/controllers/account_controller.dart';
 import '/app/providers/login_provider.dart';
-import '/app/providers/member_provider.dart';
+import '../../root/providers/member_provider.dart';
 import '/app/routes/app_pages.dart';
 
 class SettingController extends GetxController {
