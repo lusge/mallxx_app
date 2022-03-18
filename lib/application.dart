@@ -7,6 +7,7 @@ import 'app/modules/root/controllers/category_controller.dart';
 import 'app/modules/root/controllers/home_controller.dart';
 import 'app/modules/root/controllers/shop_cart_controller.dart';
 import '/app/modules/root/controllers/root_controller.dart';
+import 'app/modules/root/providers/member_provider.dart';
 
 class Application {
   static Future<void> init() async {
@@ -17,6 +18,7 @@ class Application {
     Get.put(CategoryController());
     Get.put(ShopCartController());
     Get.put(AccountController());
+    Get.put(MemberProvider());
   }
 }
 

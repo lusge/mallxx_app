@@ -14,12 +14,16 @@ class OrderConfirmProvider extends BaseProvider {
 
   //default Address
   Future<AddressInfo> getDefaultAddress() async {
-    final response = await get(defaultAddressUrl);
+    final response = await get(defaultAddressUrl, query: {"id": "0"});
+    print(response.body);
     return AddressInfo.fromJson(response.body);
   }
 
   //product
-  Future<OrderFirmResponse> getOrderFirm(Map data) async {
+  Future<OrderFirmResponse> getOrderFirm(Map? data) async {
+    if (data == null) {
+      return OrderFirmResponse(code: 200, data: null, detail: "ok");
+    }
     final response = await post(orderConfirmUrl, data);
     print(response.body.toString());
     return OrderFirmResponse.fromJson(response.body);

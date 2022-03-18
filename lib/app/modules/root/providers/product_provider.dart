@@ -17,9 +17,6 @@ class ProductProvider extends BaseProvider {
       "page_size": pageSize.toString(),
     });
 
-    print(pageNum);
-    print(pageSize);
-    // print(response.body);
     return ProductList.fromJson(response.body);
   }
 }

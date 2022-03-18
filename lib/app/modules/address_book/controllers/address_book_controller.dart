@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
-import 'package:mallxx_app/app/modules/address_book/components/edit_address_view.dart';
-import 'package:mallxx_app/app/routes/app_pages.dart';
+import '/app/components/hint.dart';
+import '/app/modules/address_book/components/edit_address_view.dart';
+import '/app/routes/app_pages.dart';
 import '/app/models/member_model.dart';
 import '/app/providers/login_provider.dart';
 import '../providers/address_provider.dart';
@@ -88,10 +89,11 @@ class AddressBookController extends GetxController {
         if (address != null) {
           address = value;
           addressProvider.updateAddress(value).then((response) {
+            print(response.detail);
             if (response.code == 200) {
               getAddressList();
             } else {
-              Get.snackbar("hint".tr, response.detail);
+              Hint.Error(response.detail);
             }
           });
         } else {
@@ -99,7 +101,7 @@ class AddressBookController extends GetxController {
             if (response.code == 200) {
               getAddressList();
             } else {
-              Get.snackbar("hint".tr, response.detail);
+              Hint.Error(response.detail);
             }
           });
         }

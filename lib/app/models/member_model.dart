@@ -9,7 +9,7 @@ class MemberResponse {
   });
 
   factory MemberResponse.fromJson(Map<String, dynamic> json) {
-    var data;
+    Member? data;
     if (json["data"] != null) {
       data = Member.fromJson(json["data"]["member"]);
     }

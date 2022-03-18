@@ -61,7 +61,7 @@ class OrderConfirmController extends GetxController {
   void getData() async {
     await Future.wait<dynamic>([
       orderConfirmProvider.getDefaultAddress(),
-      orderConfirmProvider.getOrderFirm(arg!)
+      orderConfirmProvider.getOrderFirm(arg)
     ]).then((value) {
       isLoading.toggle();
 

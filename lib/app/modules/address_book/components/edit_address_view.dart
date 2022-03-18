@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:get/get.dart';
-import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:flutter_pickers/pickers.dart';
-import 'package:mallxx_app/app/modules/address_book/providers/address_provider.dart';
+
 import '/app/models/address_model.dart';
+import '/app/components/hint.dart';
 
 typedef ConfirmCallback = void Function(Address);
 
@@ -183,6 +182,28 @@ class _EditAddressViewState extends State<EditAddressView> {
               height: 80,
               child: GestureDetector(
                 onTap: () {
+                  if (address.name == null) {
+                    Hint.Error("收货人不能为空");
+                    print("sldfjlsdkjfklsjf");
+                    return;
+                  }
+
+                  if (address.phone == null) {
+                    Hint.Error("收货人手机号码不能为空");
+                    return;
+                  }
+
+                  if (address.province == null ||
+                      address.city == null ||
+                      address.region == null) {
+                    Hint.Error("省市区不能为空");
+                    return;
+                  }
+
+                  if (address.detail == null) {
+                    Hint.Error("详细地址不能为空");
+                    return;
+                  }
                   widget.onConfirm(address);
                   Get.back();
                 },

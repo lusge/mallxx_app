@@ -10,7 +10,7 @@ class RegisterController extends GetxController {
   late TextEditingController passwordController = TextEditingController();
   final LoginProvider loginProvider = Get.find<LoginProvider>();
   final AccountController accountController = Get.find<AccountController>();
-  final MemberProvider memberProvider = Get.put(MemberProvider());
+  final MemberProvider memberProvider = Get.find<MemberProvider>();
 
   final isRegistering = false.obs;
   @override

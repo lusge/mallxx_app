@@ -23,14 +23,18 @@ class ShopCartController extends GetxController {
   void onInit() {
     super.onInit();
 
-    // getCarts();
+    getCarts();
   }
 
   void getCarts() async {
     final response = await cartProvider.getCartList();
     isLoading.value = false;
-    if (response.code == 200 && response.data != null) {
-      cartList.value = response.data!;
+    if (response.code == 200) {
+      if (response.data == null || response.data!.isEmpty) {
+        cartList.value = [];
+      } else {
+        cartList.value = response.data!;
+      }
 
       calculateTotalPrice();
     }

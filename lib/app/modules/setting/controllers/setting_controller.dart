@@ -7,6 +7,7 @@ import '/app/routes/app_pages.dart';
 class SettingController extends GetxController {
   final LoginProvider loginProvider = Get.find<LoginProvider>();
   final AccountController accountController = Get.find<AccountController>();
+  final MemberProvider memberProvider = Get.find<MemberProvider>();
 
   List<Map> settingsTitle = [
     {"name": "address_setting".tr, "url": Routes.ADDRESS_BOOK},
@@ -26,6 +27,7 @@ class SettingController extends GetxController {
   void onSignOut() {
     loginProvider.cleanLogin();
     accountController.setMember();
+    memberProvider.signOut();
     Get.back();
   }
 

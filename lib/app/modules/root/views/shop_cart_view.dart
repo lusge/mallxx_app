@@ -44,7 +44,7 @@ class ShopCartView extends GetView<ShopCartController> {
                         hoverColor: Colors.white,
                         focusColor: Colors.red,
                         side: const BorderSide(
-                          color: Colors.white,
+                          color: Colors.black,
                         ),
                         value: controller.isAllCheck.value,
                         onChanged: (value) {
@@ -318,8 +318,8 @@ class ShopCartView extends GetView<ShopCartController> {
                     child: Column(
                       children: [
                         Container(
-                          color: Colors.white,
-                          height: 110.00 * controller.cartList.length,
+                          // color: Colors.white,
+                          height: 110.00 * controller.cartList.length + 80,
                           child: ListView.builder(
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: controller.cartList.length,

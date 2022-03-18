@@ -7,7 +7,7 @@ import '../../../providers/base_provider.dart';
 class AddressProvider extends BaseProvider {
   static const String addressListUrl = "/member/address/list";
   static const String setDefaultUrl = "/member/address/default";
-  static const String deleteAddressUrl = "/member/address/delete";
+  static const String deleteAddressUrl = "/member/address/del";
   static const String addAddressUrl = "/member/address/add";
   static const String updateAddressUrl = "/member/address/update";
   @override
@@ -17,12 +17,13 @@ class AddressProvider extends BaseProvider {
 
   Future<AddressList> getAddressList() async {
     final response = await get(addressListUrl);
+
     return AddressList.fromJson(response.body);
   }
 
   Future<ResponseData> setDefaultStatus(int id) async {
     final response = await post(setDefaultUrl, {"id": id});
-
+    print(response.body);
     return ResponseData.fromJson(response.body);
   }
 
@@ -34,6 +35,7 @@ class AddressProvider extends BaseProvider {
 
   Future<ResponseData> addAddrss(Address address) async {
     final response = await post(addAddressUrl, address.toJson());
+    print(response.body);
     return ResponseData.fromJson(response.body);
   }
 

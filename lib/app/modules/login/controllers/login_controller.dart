@@ -9,7 +9,7 @@ class LoginController extends GetxController {
   late TextEditingController usernameController = TextEditingController();
   late TextEditingController passwordController = TextEditingController();
   final LoginProvider loginProvider = Get.find<LoginProvider>();
-  final MemberProvider memberProvider = Get.put(MemberProvider());
+  final MemberProvider memberProvider = Get.find<MemberProvider>();
   final AccountController accountController = Get.find<AccountController>();
 
   final agreeCheckBox = true.obs;
@@ -32,7 +32,7 @@ class LoginController extends GetxController {
 
     if (username == "") {
       Fluttertoast.showToast(
-          msg: "enter_username".tr, gravity: ToastGravity.TOP);
+          msg: "enter_username".tr, gravity: ToastGravity.CENTER);
       return;
     }
 

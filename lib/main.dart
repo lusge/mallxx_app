@@ -30,7 +30,8 @@ void main() async {
       // home: RootView(),
       getPages: AppPages.routes,
       translations: Messages(),
-      locale: Get.deviceLocale,
+      locale: const Locale("zh", "CN"),
+      // locale: Get.deviceLocale,
       fallbackLocale: const Locale("zh", "CN"),
       theme: ThemeData(
         // backgroundColor: Colors.black,

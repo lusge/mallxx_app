@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import '/app/models/address_model.dart';
 import '/app/components/order_address_view.dart';
 import '/app/components/order_product_view.dart';
 import '/app/routes/app_pages.dart';
