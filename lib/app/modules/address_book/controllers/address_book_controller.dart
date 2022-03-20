@@ -3,14 +3,13 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import '/app/components/hint.dart';
 import '/app/modules/address_book/components/edit_address_view.dart';
-import '/app/routes/app_pages.dart';
 import '/app/models/member_model.dart';
 import '/app/providers/login_provider.dart';
 import '../providers/address_provider.dart';
 import '/app/models/address_model.dart';
 
 class AddressBookController extends GetxController {
-  final AddressProvider addressProvider = Get.put(AddressProvider());
+  final AddressProvider addressProvider = Get.find<AddressProvider>();
   final LoginProvider loginProvider = Get.find<LoginProvider>();
 
   final addressList = RxList<Address>();

@@ -7,9 +7,9 @@ import '/app/models/product_model.dart';
 
 class HomeController extends GetxController {
   final AdvertisementProvider advertisemenProvider =
-      Get.put(AdvertisementProvider());
+      Get.find<AdvertisementProvider>();
 
-  final ProductProvider productProvider = Get.put(ProductProvider());
+  final ProductProvider productProvider = Get.find<ProductProvider>();
 
   final adList = RxList<Advertisement>();
   final promotionAdList = RxList<Advertisement>();

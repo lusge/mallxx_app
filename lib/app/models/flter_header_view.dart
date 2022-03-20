@@ -98,6 +98,7 @@ class _FlterHeaderViewState extends State<FlterHeaderView>
                       if (count == 3 || count == 0) {
                         count = 0;
                         item.seletecd = false;
+                        if (widget.callback != null) widget.callback!("def");
                       } else {
                         item.seletecd = true;
                         if (widget.callback != null) {

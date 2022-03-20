@@ -7,7 +7,7 @@ import '/app/models/cart_model.dart';
 
 class ShopCartController extends GetxController {
   final EasyRefreshController easyRefreshController = EasyRefreshController();
-  final CartProvider cartProvider = Get.put(CartProvider());
+  final CartProvider cartProvider = Get.find<CartProvider>();
 
   final isEdit = false.obs;
 
@@ -115,7 +115,14 @@ class ShopCartController extends GetxController {
   }
 
   void onCheckout() {
-    Get.toNamed(Routes.ORDER_CONFIRM);
+    List<int> ids = [];
+    for (final item in cartList) {
+      ids.add(item.id!);
+    }
+    Get.toNamed(Routes.ORDER_CONFIRM, arguments: {
+      "type": "cart",
+      "cart_ids": ids,
+    });
   }
 
   @override

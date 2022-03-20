@@ -14,18 +14,18 @@ class OrderConfirmProvider extends BaseProvider {
 
   //default Address
   Future<AddressInfo> getDefaultAddress() async {
-    final response = await get(defaultAddressUrl, query: {"id": "0"});
+    final response = await get(defaultAddressUrl, query: {"id": "-1"});
     print(response.body);
     return AddressInfo.fromJson(response.body);
   }
 
   //product
   Future<OrderFirmResponse> getOrderFirm(Map? data) async {
-    if (data == null) {
-      return OrderFirmResponse(code: 200, data: null, detail: "ok");
-    }
+    // if (data == null) {
+    return OrderFirmResponse(code: 200, data: [], detail: "ok");
+    // }
     final response = await post(orderConfirmUrl, data);
-    print(response.body.toString());
+    print(response.body);
     return OrderFirmResponse.fromJson(response.body);
   }
   //积分

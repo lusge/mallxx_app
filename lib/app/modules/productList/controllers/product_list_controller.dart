@@ -7,7 +7,7 @@ import '/app/models/product_model.dart';
 
 class ProductListController extends GetxController {
   final ProductListProvider productListProvider =
-      Get.put(ProductListProvider());
+      Get.find<ProductListProvider>();
   final EasyRefreshController easyRefreshController = EasyRefreshController();
 
   Map? mp = Get.arguments;

@@ -13,7 +13,7 @@ import '../providers/product_info_provider.dart';
 
 class ProductInfoController extends GetxController {
   final ProductInfoProvider productInfoProvider =
-      Get.put(ProductInfoProvider());
+      Get.find<ProductInfoProvider>();
   final LoginProvider loginProvider = Get.find<LoginProvider>();
 
   final ShopCartController shopCartController = Get.find<ShopCartController>();

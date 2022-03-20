@@ -8,7 +8,7 @@ class OrderConfirmController extends GetxController {
   Map? arg = Get.arguments;
 
   final OrderConfirmProvider orderConfirmProvider =
-      Get.put(OrderConfirmProvider());
+      Get.find<OrderConfirmProvider>();
 
   static const List<Map<String, dynamic>> payMethods = [
     {

@@ -3,7 +3,7 @@ import '/app/models/category_model.dart';
 import '../providers/category_provider.dart';
 
 class CategoryController extends GetxController {
-  final CategoryProvider categoryProvider = Get.put(CategoryProvider());
+  final CategoryProvider categoryProvider = Get.find<CategoryProvider>();
   final count = 0.obs;
 
   final categoryList = RxList<Category>();

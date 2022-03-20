@@ -9,14 +9,15 @@ class OrderFirmProduct {
   String? attr;
   double? price;
 
-  OrderFirmProduct(
-      {this.productId,
-      this.skuId,
-      this.productPic,
-      this.productName,
-      this.quantity,
-      this.attr,
-      this.price});
+  OrderFirmProduct({
+    this.productId,
+    this.skuId,
+    this.productPic,
+    this.productName,
+    this.quantity,
+    this.attr,
+    this.price,
+  });
 
   OrderFirmProduct.fromJson(Map<String, dynamic> json) {
     productId = json["product_id"];
